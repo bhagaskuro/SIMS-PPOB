@@ -1,7 +1,39 @@
-import Image from "next/image";
+"use client";
+import { LOGIN } from "@/redux/reducers/users";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const home = () => {
+export default function Home() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const isLogin = useSelector((state) => state.users.users);
+
+  function handleChange(event) {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (form.email == "" || form.password == "") {
+      alert("Please fill the form");
+    } else {
+      dispatch(LOGIN(form));
+      router.push("/dashboard");
+    }
+  }
+
   return (
     <>
       <div className="flex min-h-screen">
@@ -41,9 +73,11 @@ const home = () => {
                       </g>
                     </svg>
                     <input
-                      type="text"
+                      type="email"
+                      onChange={handleChange}
                       placeholder="Masukkan email anda"
                       className="input input-bordered w-full max-w-none pl-12"
+                      name="email"
                     />
                   </div>
 
@@ -84,13 +118,18 @@ const home = () => {
                     </svg>
                     <input
                       type="password"
+                      onChange={handleChange}
                       placeholder="Masukkan password anda"
+                      name="password"
                       className="input input-bordered w-full max-w-none pl-12"
                     />
                   </div>
                 </div>
 
-                <button className="bg-red-500 hover:bg-red-700 text-white font-semibold py-3 rounded w-full">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-red-500 hover:bg-red-700 text-white font-semibold py-3 rounded w-full"
+                >
                   Masuk
                 </button>
               </div>
@@ -113,6 +152,4 @@ const home = () => {
       </div>
     </>
   );
-};
-
-export default home;
+}
