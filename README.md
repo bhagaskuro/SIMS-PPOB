@@ -1,2 +1,3 @@
 # SIMS-PPOB
-SIMS PPOB Web-app using Next-JS
+
+UNDER CONSTRUCTION || This Project isn't finished yet.
