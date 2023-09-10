@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@types/node": "20.6.0",
-    "daisyui": "^3.7.3",
-    "typescript": "5.2.2"
+    "daisyui": "^3.7.3"
   }
 }
